@@ -50,9 +50,14 @@ public class BigView extends View implements GestureDetector.OnGestureListener,V
         //滑动帮助右侧的
         mScroller = new Scroller(context);
     }
+
+    /**
+     * 输入图片
+     * @param inputStream
+     */
     public void setImage(InputStream inputStream){
         mOptions.inJustDecodeBounds = true;
-        Bitmap bitmap = BitmapFactory.decodeStream(inputStream, null, mOptions);
+        BitmapFactory.decodeStream(inputStream, null, mOptions);
         mImageWidth = mOptions.outWidth;
         mImageHeight = mOptions.outHeight;
         //开启复用
@@ -74,14 +79,11 @@ public class BigView extends View implements GestureDetector.OnGestureListener,V
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         mViewWidth = getMeasuredWidth();
         mViewHeight = getMeasuredHeight();
-        if (null == mDecoder){
-            return;
-        }
         //确定要加载的区域
         mRect.left =0;
         mRect.top =0;
         mRect.right = mImageWidth;
-        mScale = mViewWidth/(float)mViewWidth;
+        mScale = mViewWidth/(float)mImageWidth;
         mRect.bottom = (int)(mViewHeight/mScale);
     }
 
